@@ -1,0 +1,10 @@
+# Secrets: never commit these
+.env
+*.pem
+*.key
+.passport/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
