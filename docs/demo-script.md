@@ -78,6 +78,7 @@ The CLI is the part of Passport that runs on the caller's machine. Say this once
 - **Do:** revoke the grant in the web app. Run `passport refresh`, then repeat the list call.
 - **Show:** the call now fails `[to verify: latency]`. The certificate lasts about 5 minutes, so revocation may not be instant.
 - **Say:** "No key rotation, no other team affected. The key never changed."
+- **If asked "what if the reference leaks?":** a reference (`{{vault:<uuid>}}`) is an identifier, not a secret. The proxy only replaces it for a caller whose certificate carries a grant for that endpoint `[verified: without a grant the text is sent as it is]`, and the proxy runs in your network. Nothing needs rotating: check who holds grants on that endpoint and revoke what you do not recognise. A full test with a stolen reference and a different user's certificate has not been run `[to verify]`.
 - **Recording tip:** cut the wait. Live, say what is happening, or run `passport refresh` to force the new certificate.
 
 ### 9. Close (about 0.5 min)
