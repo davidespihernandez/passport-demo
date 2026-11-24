@@ -64,7 +64,7 @@ The CLI is the part of Passport that runs on the caller's machine. Say this once
 - **Say:** "A person decides, not the agent. Then the Passport CLI asks Passport Cloud for a new certificate, and the grant travels inside it."
 
 ### 6. The call works, and the trace (about 1.5 min)
-- **Do:** *"List my Postman collections."* The agent uses `passport request 'https://api.getpostman.com/collections' -H 'x-api-key: {{vault:<uuid>}}'`.
+- **Do:** *"List my Postman collections."* The agent uses `passport request 'https://api.getpostman.com/collections?workspace=<demo workspace id>' -H 'x-api-key: {{vault:<uuid>}}'`. The `workspace` filter is required: without it the Postman API returns an empty list for the service account `[verified]`. Whether Passport's `GET /collections` endpoint still matches with a query string `[to verify]`.
 - **Show:** the list of collections, then the call in Passport's activity view `[to verify: what the trace shows]`.
 - **Say:** "The agent called the real URL through the Passport CLI. The CLI presented the certificate, and the proxy read the secret from the vault and added it to the call. The agent never saw it."
 

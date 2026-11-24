@@ -7,8 +7,11 @@ You have no Postman API key, and you must never ask for one. Calls to the Postma
 Use the real URL, and use `passport request` so the call goes through the proxy:
 
 ```
-passport request 'https://api.getpostman.com/collections' -H 'x-api-key: {{vault:<uuid>}}'
+passport request 'https://api.getpostman.com/collections?workspace=b43984d2-2319-4792-9095-634778044fbe' -H 'x-api-key: {{vault:<uuid>}}'
 ```
+
+- Always add `?workspace=b43984d2-2319-4792-9095-634778044fbe` (the Passport demo workspace) when listing collections. Without it the API returns an empty list for this account.
+- To delete a collection, use `DELETE https://api.getpostman.com/collections/<uid>`, where the uid comes from the list.
 
 - Put the URL first and `-H` after it. `-H` takes the next argument as a header.
 - The key goes in the `x-api-key` header, as `{{vault:<uuid>}}`.
