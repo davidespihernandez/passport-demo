@@ -9,7 +9,7 @@ Demo for a webinar on **Postman Passport**: let an AI agent call an authenticate
 
 1. **Before**: Claude uses a Postman API key from its config. It can list workspaces, and it can also print the key.
 2. **Setup**: an admin registers the Postman API in a Passport namespace and binds the key (stored in a vault) to the endpoints.
-3. **After**: same agent, same tools, config uses `{{vault:POSTMAN_API_KEY}}`. The agent has no key to show.
+3. **After**: same agent, same tools, config uses `{{vault:<uuid shown by `passport whoami`>}}`. The agent has no key to show.
 4. **Access**: the agent requests read-only access, a human approves it in Passport.
 5. **Call**: listing workspaces works. The trace shows the call.
 6. **Deny**: a destructive call is refused by Passport even though the key would allow it.
