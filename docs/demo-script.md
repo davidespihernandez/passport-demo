@@ -60,23 +60,23 @@ The CLI is the part of Passport that runs on the caller's machine. Say this once
 
 ### 5. A human approves (about 0.5 min)
 - **Do:** approve at `https://app.usepassport.ai/approval-requests`, then run `passport refresh` as the Member `[verified]`.
-- **Show:** `passport whoami` listing the allowed endpoints and the `{{vault:<uuid>}}` for each. The uuid is per endpoint, not the reference id `[verified]`.
+- **Show:** `passport whoami` listing the allowed endpoints and the `{{vault:<uuid>}}` for each. The uuid is per endpoint, not the reference id, and it changes every time a new grant is issued: always read it from `passport whoami` after `passport refresh` `[verified]`.
 - **Say:** "A person decides, not the agent. Then the Passport CLI asks Passport Cloud for a new certificate, and the grant travels inside it."
 
 ### 6. The call works, and the trace (about 1.5 min)
-- **Do:** *"List my Postman collections."* The agent uses `passport request 'https://api.getpostman.com/collections?workspace=<demo workspace id>' -H 'x-api-key: {{vault:<uuid>}}'`. The `workspace` filter is required: without it the Postman API returns an empty list for the service account `[verified]`. Whether Passport's `GET /collections` endpoint still matches with a query string `[to verify]`.
+- **Do:** *"List my Postman collections."* The agent uses `passport request 'https://api.getpostman.com/collections?workspace=<demo workspace id>' -H 'x-api-key: {{vault:<uuid>}}'`. The `workspace` filter is required: without it the Postman API returns an empty list for the service account `[verified]`. The endpoint `GET /collections` matches with the query string `[verified]`.
 - **Show:** the list of collections, then the call in Passport's activity view `[to verify: what the trace shows]`.
 - **Say:** "The agent called the real URL through the Passport CLI. The CLI presented the certificate, and the proxy read the secret from the vault and added it to the call. The agent never saw it."
 
 ### 7. Delete is denied (about 1 min)
 - **Do:** *"Delete the collection Users API."*
-- **Show:** the call fails `[to verify: exact error text]`. Open Postman: `Users API` is still there.
+- **Show:** the call fails with Postman's own 401, `Invalid API Key` `[verified]`: Passport does not inject the key and does not add a message of its own. Open Postman: `Users API` is still there.
 - **Say:** "Postman would have allowed this delete. Passport did not, because the grant covers reading only."
 - **Careful:** today the failure comes from the key not being added (Postman answers 401). Describe it as "no grant for this endpoint", not as a policy engine message, until the real text is confirmed.
 
 ### 8. Revoke without rotating (about 1.5 min)
 - **Do:** revoke the grant in the web app. Run `passport refresh`, then repeat the list call.
-- **Show:** the call now fails `[to verify: latency]`. The certificate lasts about 5 minutes, so revocation may not be instant.
+- **Show:** right after the revoke the same call still works, because the certificate already issued carries the grant for up to about 5 minutes `[verified]`. After `passport refresh` the certificate lists no endpoints and the call fails with 401 `[verified]`. Revocation applies at the next certificate, not instantly.
 - **Say:** "No key rotation, no other team affected. The key never changed."
 - **If asked "what if the reference leaks?":** a reference (`{{vault:<uuid>}}`) is an identifier, not a secret. The proxy only replaces it for a caller whose certificate carries a grant for that endpoint `[verified: without a grant the text is sent as it is]`, and the proxy runs in your network. Nothing needs rotating: check who holds grants on that endpoint and revoke what you do not recognise. A full test with a stolen reference and a different user's certificate has not been run `[to verify]`.
 - **Recording tip:** cut the wait. Live, say what is happening, or run `passport refresh` to force the new certificate.
@@ -98,7 +98,6 @@ Three lines: no key in the agent, access on request and time-boxed, revoke and a
 
 ## Still open
 
-- Exact text and status code when a call has no grant `[to verify]`.
 - What the audit view shows per call `[to verify]`.
-- Revocation latency `[to verify]`.
+- The local proxy writes one `CONNECT` and one `MITM` line (method, host, user) per call to stdout. What the Passport web app shows `[to verify]`.
 - Whether the agent should use `passport request` or a local MCP server for the calls. A Node MCP server ignores the proxy unless started with `NODE_USE_ENV_PROXY=1`.

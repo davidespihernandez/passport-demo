@@ -15,7 +15,7 @@ passport request 'https://api.getpostman.com/collections?workspace=b43984d2-2319
 
 - Put the URL first and `-H` after it. `-H` takes the next argument as a header.
 - The key goes in the `x-api-key` header, as `{{vault:<uuid>}}`.
-- The `<uuid>` is different for each endpoint. Run `passport whoami` and use the one listed under the method and path you are calling (for example `GET api.getpostman.com/collections`).
+- The `<uuid>` is different for each endpoint, and it changes every time you get a new grant. Run `passport refresh` and then `passport whoami` before you use it. Run `passport whoami` and use the one listed under the method and path you are calling (for example `GET api.getpostman.com/collections`).
 - Use the UUID from `passport whoami`, not the name of the secret reference. A wrong UUID is not reported as an error: the text is sent as it is and Postman answers 401.
 
 ## If a call fails
