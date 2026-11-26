@@ -1,7 +1,7 @@
 # Stream Deck layout
 
 One-time setup: Finder > any `streamdeck/*.command` > Get Info > Open with: iTerm > Change All.
-Script buttons: *System > Open* pointing at the `streamdeck/*.command` file (each opens a new iTerm window, cds into the repo and runs the script). Start/reset/refresh keep the window open with a shell; trace and the agents stay running.
+Script buttons: *System > Open* pointing at the `streamdeck/*.command` file (each opens a NEW iTerm window via AppleScript, cds into the repo and runs the script). Start/reset/refresh keep the window open with a shell; trace and the agents stay running.
 Press Trace before the agent button, or click the agent window before using the prompt buttons (Text goes to the focused window).
 
 Folder "Passport demo": 14 buttons + back. Scripts = *System > Open* (or Advanced Launcher, in a terminal).

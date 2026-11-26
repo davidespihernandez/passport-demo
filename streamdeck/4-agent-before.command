@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-# Stream Deck launcher. Opens in the terminal associated with .command files (iTerm).
-cd "$HOME/Documents/code/passport-demo" || exit 1
-agent/before/run.sh
-
+# Stream Deck launcher: opens a new iTerm window (see _open.sh).
+"$(dirname "$0")/_open.sh" "agent/before/run.sh" 0
