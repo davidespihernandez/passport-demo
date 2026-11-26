@@ -42,7 +42,7 @@ Things that bit us (details in `docs/demo-script.md`):
 - The CLI only works correctly with the default dir `~/.passport`; keep the **agent identity** logged in there, and the admin session in `~/passport-admin` (used by the scripts).
 - The `{{vault:<uuid>}}` changes with every new grant: read it from `passport whoami` after `passport refresh`.
 - `NO_PROXY` must not exclude `postman.com`, or calls bypass the proxy.
-- Sessions last about 1 hour.
+- The access token lasts ~15 min; `passport auth status` renews it from the refresh token. `scripts/start.sh` launches `scripts/keepalive.sh`, which renews both sessions (agent and admin) every 5 min, and `reset`/`refresh` renew them too.
 
 ## Stream Deck (optional)
 
@@ -54,7 +54,7 @@ Run the whole demo with buttons, no typing: build the launchers with `streamdeck
 
 | Path | Purpose |
 |---|---|
-| `scripts/` | `start` (bring everything up), `preflight` (is it ready?), `reset` (no grants, recreates `Scratch API` if missing), `seed-scratch`, `refresh`, `lib.sh` (shared vars) |
+| `scripts/` | `start` (bring everything up), `preflight` (is it ready?), `reset` (no grants, recreates `Scratch API` if missing), `seed-scratch`, `refresh`, `keepalive` (renews sessions), `lib.sh` (shared vars) |
 | `agent/before`, `agent/after` | Agent folders: `CLAUDE.md` + `run.sh`. Before: key in env. After: no key, uses Passport and requests access through the Passport public API |
 | `streamdeck/` | `_open.sh` (new iTerm window), `build-apps.sh` (launcher apps) |
 | `docs/` | `demo-script.md` (script and verified facts), `streamdeck.md` (button layout) |

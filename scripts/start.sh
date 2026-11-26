@@ -10,6 +10,7 @@ docker info >/dev/null 2>&1 || { echo "Docker is not running. Start Docker Deskt
 [ -f "$PP_DIR/passport-api.js" ] || { echo "Missing $PP_DIR/passport-api.js"; exit 1; }
 
 KEY="$(env_get POSTMAN_API_KEY_SA)"; [ -n "$KEY" ] || { echo "POSTMAN_API_KEY_SA is empty in .env"; exit 1; }
+renew_sessions
 [ -f "$ADMIN_DIR/passportrc" ] || { echo "Missing admin session in $ADMIN_DIR (passportrc). See docs/runbook.md."; exit 1; }
 ORG="$(passport auth status 2>&1 | awk '$1=="org"{print $2}')"; [ -n "$ORG" ] || { echo "Not logged in. Run: passport login"; exit 1; }
 
@@ -42,3 +43,7 @@ echo "CLI..."
 passport setup --management-url http://localhost:8081 --proxy-url https://localhost:8443 >/dev/null 2>&1 || true
 echo
 "$(dirname "${BASH_SOURCE[0]}")/preflight.sh"
+
+# keep both sessions alive during the demo
+nohup "$(dirname "${BASH_SOURCE[0]}")/keepalive.sh" >/dev/null 2>&1 &
+echo "Sessions: keepalive running (renews every 5 min)."
