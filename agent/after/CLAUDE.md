@@ -18,9 +18,22 @@ passport request 'https://api.getpostman.com/collections?workspace=b43984d2-2319
 - The `<uuid>` is different for each endpoint, and it changes every time you get a new grant. Run `passport refresh` and then `passport whoami` before you use it. Run `passport whoami` and use the one listed under the method and path you are calling (for example `GET api.getpostman.com/collections`).
 - Use the UUID from `passport whoami`, not the name of the secret reference. A wrong UUID is not reported as an error: the text is sent as it is and Postman answers 401.
 
+## How to ask for access
+
+You have a Passport API key for your own user in `$PASSPORT_API_KEY_AGENT`. It only lets you request access. Never print it.
+
+```
+curl -s -X POST https://api.usepassport.ai/public/v1/access-requests \
+  -H "Authorization: Bearer $PASSPORT_API_KEY_AGENT" -H 'Content-Type: application/json' \
+  -d '{"namespaceId":"5a99bfaa-d6af-4805-ac6c-9b1b228e1aa9","entities":[{"type":"resource_group","id":"184cf344-8511-4ce4-9c06-8b798a762b95"}],"durationDays":7,"message":"<why you need it>"}'
+```
+
+- `184cf344-...` is the read group (`Postman API - read`). Ask for read only, for the shortest time that covers the task.
+- The request stays pending until a person approves it. Tell the user and wait. Do not try to approve it.
+
 ## If a call fails
 
-- A 401 from Postman usually means you have no grant for that endpoint, or it expired. Do not try to find a key. Ask for access with the `passport:passport-public-api` skill: request the resource group you need, for the shortest time that covers the task.
+- A 401 from Postman usually means you have no grant for that endpoint, or it expired. Do not try to find a key. Ask for access as described above.
 - After the access is approved, run `passport refresh` so the new grant reaches your certificate, then try again.
 - `passport: missing vault reference` means the proxy could not read the secret. Tell the user. Do not work around it.
 
