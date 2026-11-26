@@ -11,4 +11,5 @@ for G in $(api GET "/api/v2/access-grants?namespaceId=$NS_ID" | jq -r --arg u "$
 done
 echo "Revoked $N active grant(s) of $ME."
 passport refresh >/dev/null 2>&1
+"$(dirname "${BASH_SOURCE[0]}")/seed-scratch.sh"
 "$(dirname "${BASH_SOURCE[0]}")/preflight.sh"

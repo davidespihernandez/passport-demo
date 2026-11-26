@@ -54,7 +54,7 @@ Run the whole demo with buttons, no typing: build the launchers with `streamdeck
 
 | Path | Purpose |
 |---|---|
-| `scripts/` | `start` (bring everything up), `preflight` (is it ready?), `reset` (no grants), `refresh`, `lib.sh` (shared vars) |
+| `scripts/` | `start` (bring everything up), `preflight` (is it ready?), `reset` (no grants, recreates `Scratch API` if missing), `seed-scratch`, `refresh`, `lib.sh` (shared vars) |
 | `agent/before`, `agent/after` | Agent folders: `CLAUDE.md` + `run.sh`. Before: key in env. After: no key, uses Passport and requests access through the Passport public API |
 | `streamdeck/` | `_open.sh` (new iTerm window), `build-apps.sh` (launcher apps) |
 | `docs/` | `demo-script.md` (script and verified facts), `streamdeck.md` (button layout) |
