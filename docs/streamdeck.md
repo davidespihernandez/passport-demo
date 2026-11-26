@@ -1,5 +1,8 @@
 # Stream Deck layout
 
+One-time setup: Finder > any `streamdeck/*.command` > Get Info > Open with: iTerm > Change All.
+Script buttons: *System > Open* pointing at the `streamdeck/*.command` file (each opens a new iTerm window and runs it).
+
 Folder "Passport demo": 14 buttons + back. Scripts = *System > Open* (or Advanced Launcher, in a terminal).
 Prompts = *Text* action; end each text with a newline so pressing the button sends it.
 Focus the right window first: agent terminal for prompts, admin Chrome for web buttons.
