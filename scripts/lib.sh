@@ -11,6 +11,8 @@ VAULT_TOKEN_LOCAL=root-token-for-local-dev
 PROXY_IMAGE=ociregistry.usepassport.ai/passport/passport-proxy:latest
 
 env_get() { grep "^$1=" "$ENV_FILE" | head -1 | cut -d= -f2- | tr -d "\"'\r"; }
-api() { node "$PP_DIR/passport-api.js" "$@"; }
+# The CLI (default ~/.passport) is the Member, the agent identity. The admin API calls use the admin session kept in ADMIN_DIR.
+ADMIN_DIR="${ADMIN_DIR:-$HOME/passport-admin}"
+api() { PASSPORT_DIR="$ADMIN_DIR" node "$PP_DIR/passport-api.js" "$@"; }
 ok()   { printf '  \033[32mOK\033[0m   %s\n' "$*"; }
 fail() { printf '  \033[31mFAIL\033[0m %s\n' "$*"; FAILED=1; }

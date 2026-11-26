@@ -11,14 +11,16 @@ Status tags: `[verified]` was run for real, `[to verify]` is expected behaviour 
 | Who | Role |
 |---|---|
 | Claude Code | The agent. Runs in a terminal, in `agent/before` and `agent/after`. |
-| You, as admin | Configures Passport and approves requests in the web app. |
-| A second identity (Member) | The user the agent acts as. Needed so the approval step is real: an admin's request approves itself `[verified]`. |
+| You, as admin | Configures Passport and approves requests in the web app (browser, normal window). |
+| The agent identity (a Member user, `david.espi+passport`) | The user the agent acts as. The Passport CLI is logged in as this user. It must exist before the demo: an admin invites it once and it accepts the invitation. With an admin identity the request approves itself, so the approval step would not be real `[verified]`. |
 
 **Starting state** (`scripts/preflight.sh` checks it):
 - The proxy and its vault are running, and the Postman key is loaded in the vault.
 - The namespace has two resource groups: read (`GET /collections`, `GET /workspaces`) and write (`DELETE /collections/*`), both bound to the key reference.
 - The workspace has `Orders API`, `Payments API`, `Users API`, plus a disposable `Scratch API`.
-- No grant exists for the Member user. `NO_PROXY` does not exclude `*.postman.com`.
+- No grant exists for the agent identity. `NO_PROXY` does not exclude `*.postman.com`.
+- The CLI default login (`~/.passport`) is the agent identity. The Passport CLI only works with its default directory: `PASSPORT_DIR` or a different `HOME` send the calls elsewhere `[verified]`. The admin session for the API scripts is kept in `~/passport-admin`.
+- Sessions last a little over an hour. Run `passport login` again right before recording. If it asks whether to override the login, move `~/.passport/passportrc` aside first.
 
 ## Where the Passport CLI fits
 
@@ -54,12 +56,12 @@ The CLI is the part of Passport that runs on the caller's machine. Say this once
 - **Say:** "Same agent, same question. There is nothing to leak, and no access yet."
 
 ### 4. The agent asks for access (about 1 min)
-- **Do:** as the Member identity, the agent requests read access to the read group for 7 days (Passport public API, `POST /access-requests`).
-- **Show:** the pending request in the approval page.
+- **Do:** as the agent identity, the agent requests read access to the read group for 7 days. The Passport CLI has no command for this: the agent uses the Passport public API (`POST /access-requests`) with the API key of the agent user, or the user asks in the web app. The request stays pending, because a Member cannot approve it `[verified]`.
+- **Show:** the pending request in the approval page (browser window of the agent user: "Requested by You", only a Cancel button).
 - **Say:** "Access is requested for specific endpoints and for a limited time."
 
 ### 5. A human approves (about 0.5 min)
-- **Do:** approve at `https://app.usepassport.ai/approval-requests`, then run `passport refresh` as the Member `[verified]`.
+- **Do:** in the admin browser window, approve at `https://app.usepassport.ai/approval-requests`, then run `passport refresh` in the agent terminal `[verified]`.
 - **Show:** `passport whoami` listing the allowed endpoints and the `{{vault:<uuid>}}` for each. The uuid is per endpoint, not the reference id, and it changes every time a new grant is issued: always read it from `passport whoami` after `passport refresh` `[verified]`.
 - **Say:** "A person decides, not the agent. Then the Passport CLI asks Passport Cloud for a new certificate, and the grant travels inside it."
 
@@ -100,4 +102,5 @@ Three lines: no key in the agent, access on request and time-boxed, revoke and a
 
 - What the audit view shows per call `[to verify]`.
 - The local proxy writes one `CONNECT` and one `MITM` line (method, host, user) per call to stdout. What the Passport web app shows `[to verify]`.
+- API key for the agent user, so the agent files the request itself (created in Organization, API keys, as that user) `[to verify]`.
 - Whether the agent should use `passport request` or a local MCP server for the calls. A Node MCP server ignores the proxy unless started with `NODE_USE_ENV_PROXY=1`.

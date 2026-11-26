@@ -10,6 +10,7 @@ docker info >/dev/null 2>&1 || { echo "Docker is not running. Start Docker Deskt
 [ -f "$PP_DIR/passport-api.js" ] || { echo "Missing $PP_DIR/passport-api.js"; exit 1; }
 
 KEY="$(env_get POSTMAN_API_KEY_SA)"; [ -n "$KEY" ] || { echo "POSTMAN_API_KEY_SA is empty in .env"; exit 1; }
+[ -f "$ADMIN_DIR/passportrc" ] || { echo "Missing admin session in $ADMIN_DIR (passportrc). See docs/runbook.md."; exit 1; }
 ORG="$(passport auth status 2>&1 | awk '$1=="org"{print $2}')"; [ -n "$ORG" ] || { echo "Not logged in. Run: passport login"; exit 1; }
 
 docker network inspect $NET >/dev/null 2>&1 || docker network create $NET >/dev/null
