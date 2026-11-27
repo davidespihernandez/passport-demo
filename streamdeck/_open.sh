@@ -6,7 +6,12 @@ osascript - "$CMD" <<'OSA'
 on run argv
   tell application "iTerm"
     activate
-    create window with default profile command ("/bin/bash -lc " & quoted form of (item 1 of argv))
+    set c to "/bin/bash -lc " & quoted form of (item 1 of argv)
+    try
+      create window with profile "Demo" command c
+    on error
+      create window with default profile command c
+    end try
   end tell
 end run
 OSA

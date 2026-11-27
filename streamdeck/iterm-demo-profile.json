@@ -1,0 +1,12 @@
+{
+  "Profiles": [
+    {
+      "Name": "Demo",
+      "Guid": "7c1e5a52-0d3a-4f3e-9f55-passport-demo",
+      "Dynamic Profile Parent Name": "Default",
+      "Normal Font": "Menlo-Regular 22",
+      "Columns": 110,
+      "Rows": 32
+    }
+  ]
+}

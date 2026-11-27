@@ -1,6 +1,6 @@
 # Stream Deck layout
 
-One-time setup: run `streamdeck/build-apps.sh` (builds `streamdeck/apps/*.app`; no .command, no terminal association needed).
+One-time setup: run `streamdeck/install-profile.sh` (iTerm profile "Demo": big font, fixed size; edit `streamdeck/iterm-demo-profile.json` to change it) and `streamdeck/build-apps.sh` (builds `streamdeck/apps/*.app`; no .command, no terminal association needed).
 
 Folder "Passport demo": 14 buttons + back. Scripts = *System > Open* (or Advanced Launcher, in a terminal).
 Prompts = *Text* action; end each text with a newline so pressing the button sends it.
