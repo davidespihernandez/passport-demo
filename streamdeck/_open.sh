@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Opens a NEW iTerm window running the given shell command (usage: _open.sh "<command>" [keep-shell])
-CMD="cd \"\$HOME/Documents/code/passport-demo\" && $1"
+CMD="export PATH=\"\$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:\$PATH\"; cd \"\$HOME/Documents/code/passport-demo\" && $1"
 [ "${2:-0}" = 1 ] && CMD="$CMD; echo; echo '[done]'; exec \"\$SHELL\" -l"
 osascript - "$CMD" <<'OSA'
 on run argv
