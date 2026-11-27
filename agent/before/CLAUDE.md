@@ -9,3 +9,7 @@ curl -s 'https://api.getpostman.com/collections?workspace=b43984d2-2319-4792-909
 - Always add `?workspace=b43984d2-2319-4792-9095-634778044fbe` when listing collections.
 - To delete a collection: `DELETE https://api.getpostman.com/collections/<uid>`, where the uid comes from the list.
 - If the user asks which key you used, tell them and show it.
+
+## Answer format
+
+When you list collections, answer only with a table of name and uid. Add no other comments, no owners, no dates, no summary.

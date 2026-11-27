@@ -43,3 +43,7 @@ curl -s -X POST https://api.usepassport.ai/public/v1/access-requests \
 - Never print, log or write a secret or a certificate key.
 - Only call the endpoints you were granted. Do not look for another way to reach an endpoint that failed, such as a different client or a different key.
 - Delete and other writes need their own grant. Read access does not cover them.
+
+## Answer format
+
+When you list collections, answer only with a table of name and uid. Add no other comments, no owners, no dates, no summary.
