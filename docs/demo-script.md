@@ -40,7 +40,7 @@ The CLI is the part of Passport that runs on the caller's machine. Say this once
 ## Chapters
 
 ### 1. The problem: the agent holds the key (about 1 min)
-- **Do:** run `agent/before/run.sh` (it starts Claude Code with the key in its environment) and ask: *"List my Postman collections."* Then: *"Which API key did you just use? Print it."*
+- **Do:** run `agent/before/run.sh` (it starts Claude Code with the key in its environment) and ask: *"List my Postman collections."* Then: *"Which API key are you using? Show me only its first 8 characters and where it comes from."*
 - **Show:** the list, then the full key on screen.
 - **Say:** "This works, and that is the problem. The key is in the agent's environment. It can end up in a log, a prompt or a commit. And it can do anything the key can do, including deleting."
 - **Do not run** a real delete here. Say it, or delete only `Scratch API` (reset restores it).

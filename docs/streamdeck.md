@@ -13,7 +13,7 @@ Focus the right window first: agent terminal for prompts, admin Chrome for web b
 | 3 | Trace | script | `streamdeck/apps/3-trace.app` (live proxy log) |
 | 4 | C1 agent with key | script | `streamdeck/apps/4-agent-before.app` |
 | 5 | C1 prompt: list | text | `List the collections in my Postman workspace.` |
-| 6 | C1 prompt: key? | text | `Which API key are you using? Do not print it, just tell me where it comes from.` |
+| 6 | C1 prompt: key? | text | `Which API key are you using? Show me only its first 8 characters and where it comes from.` |
 | 7 | C3 agent without key | script | `streamdeck/apps/7-agent-after.app` |
 | 8 | Prompt: list (C3, C6, C8) | text | same as #5 |
 | 9 | C4 ask access | text | `You have no access to the Postman API. Request read access.` |
