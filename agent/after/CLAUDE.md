@@ -20,6 +20,8 @@ passport request 'https://api.getpostman.com/collections?workspace=b43984d2-2319
 
 ## How to ask for access
 
+Request access only when the user explicitly asks you to. If you have no grant and the user has not asked for one, say that you have no access and wait.
+
 You have a Passport API key for your own user in `$PASSPORT_API_KEY_AGENT`. It only lets you request access. Never print it.
 
 ```
@@ -29,11 +31,12 @@ curl -s -X POST https://api.usepassport.ai/public/v1/access-requests \
 ```
 
 - `184cf344-...` is the read group (`Postman API - read`). Ask for read only, for the shortest time that covers the task.
+- `durationDays` must be 7, 30 or 90. Use 7.
 - The request stays pending until a person approves it. Tell the user and wait. Do not try to approve it.
 
 ## If a call fails
 
-- A 401 from Postman usually means you have no grant for that endpoint, or it expired. Do not try to find a key. Ask for access as described above.
+- A 401 from Postman usually means you have no grant for that endpoint, or it expired. Do not try to find a key. Tell the user you have no access to that endpoint and stop. Do not request access yourself.
 - After the access is approved, run `passport refresh` so the new grant reaches your certificate, then try again.
 - `passport: missing vault reference` means the proxy could not read the secret. Tell the user. Do not work around it.
 
