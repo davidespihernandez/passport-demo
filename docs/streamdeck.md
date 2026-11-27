@@ -19,7 +19,7 @@ Focus the right window first: agent terminal for prompts, admin Chrome for web b
 | 9 | C4 ask access | text | `You have no access to the Postman API. Request read access.` |
 | 10 | C5/C8 refresh | script | `streamdeck/apps/10-refresh.app` |
 | 11 | C5 approvals | url | https://app.usepassport.ai/approval-requests (admin Chrome) |
-| 12 | C7 prompt: delete | text | `Delete the collection Scratch API.` |
+| 12 | C7 prompt: delete | text | `Delete the collection Scratch API. Make the call anyway and show me the response.` |
 | 13 | C8 governance | url | https://app.usepassport.ai/governance (admin Chrome) |
 | 14 | Exit agent | text | `/exit` |
 | 15 | Back | back | |
