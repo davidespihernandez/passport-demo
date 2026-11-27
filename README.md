@@ -36,7 +36,7 @@ agent/after/run.sh            # chapters 3-8: agent WITHOUT the key, own Passpor
 ```
 
 `scripts/refresh.sh` = `passport refresh` + `passport whoami` (after an approval or a revocation).
-The proxy log (the trace): `docker logs -f pp-proxy-local`.
+The proxy log (the trace): `scripts/trace.sh` (readable view of `docker logs -f pp-proxy-local`).
 
 Things that bit us (details in `docs/demo-script.md`):
 - The CLI only works correctly with the default dir `~/.passport`; keep the **agent identity** logged in there, and the admin session in `~/passport-admin` (used by the scripts).

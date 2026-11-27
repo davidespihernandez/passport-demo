@@ -9,7 +9,7 @@ mk(){ # name, command, keep-shell
 }
 mk 1-start "scripts/start.sh" 1
 mk 2-reset "scripts/reset.sh" 1
-mk 3-trace "docker logs -f --since 1m pp-proxy-local" 0
+mk 3-trace "scripts/trace.sh" 0
 mk 4-agent-before "agent/before/run.sh" 0
 mk 7-agent-after "agent/after/run.sh" 0
 mk 10-refresh "scripts/refresh.sh" 1
